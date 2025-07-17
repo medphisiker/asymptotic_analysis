@@ -6,6 +6,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy.typing import NDArray
 
+# Параметры графика
+X_MIN = 20  # Минимальное значение по оси X
+X_MAX = 50  # Максимальное значение по оси X
+Y_MIN = 0  # Минимальное значение по оси Y
+Y_MAX = 500  # Максимальное значение по оси Y
+N_POINTS = 500  # Количество точек для построения
+
+# Параметры асимптотического анализа
+N0 = 35  # Пороговое значение n
+c1 = 0.2  # Минимальное значение c1
+c2 = 0.3  # Максимальное значение c2
+
+
 plt.figure(figsize=(14, 8))  # Настройка размера графика
 
 
@@ -19,14 +32,7 @@ def g(n: float | NDArray[np.float64]) -> float | NDArray[np.float64]:
     return n**2
 
 
-n0 = 10  # Пороговое значение n
-n = np.linspace(1, 20, 500)  # Диапазон значений n
-
-# Автоматический подбор c1 и c2 для n >= n0
-n_mask = n >= n0
-ratios = f(n[n_mask]) / g(n[n_mask])
-c1 = np.min(ratios)  # Минимальное значение c1
-c2 = np.max(ratios)  # Максимальное значение c2
+n = np.linspace(X_MIN, X_MAX, N_POINTS)  # Диапазон значений n
 
 # Построение графиков функций и двух оценок
 plt.plot(n, f(n), label=r"$f(n) = 0.2n^2 + 3n + 15$", lw=3, color="blue")
@@ -47,13 +53,13 @@ plt.plot(
     color="green",
 )
 
-# Визуализация порогового значения n0
-plt.axvline(n0, color="green", linestyle=":", alpha=0.7, label=rf"Порог $n_0 = {n0}$")
-plt.scatter(n0, f(n0), color="green", s=80, zorder=5, marker="o")
+# Визуализация порогового значения N0
+plt.axvline(N0, color="green", linestyle=":", alpha=0.7, label=rf"Порог $n_0 = {N0}$")
+plt.scatter(N0, f(N0), color="green", s=80, zorder=5, marker="o")
 plt.annotate(
-    rf"$f({n0}) = {float(f(n0)):.1f}$",
-    (n0, float(f(n0))),
-    xytext=(n0 - 4, float(f(n0)) + 10),
+    rf"$f({N0}) = {float(f(N0)):.1f}$",
+    (N0, float(f(N0))),
+    xytext=(N0 - 4, float(f(N0)) + 10),
     arrowprops={"arrowstyle": "->"},
 )
 
@@ -62,24 +68,26 @@ plt.fill_between(
     n,
     c1 * g(n),
     c2 * g(n),
-    where=list(n >= n0),
+    where=list(n >= N0),
     color="limegreen",
     alpha=0.2,
-    label=rf"$c_1 g(n) \leq f(n) \leq c_2 g(n)$ для $n \geq n_0 = {n0}$",
+    label=rf"$c_1 g(n) \leq f(n) \leq c_2 g(n)$ для $n \geq n_0 = {N0}$",
 )
 
 # Оформление графика
 plt.title(
-    rf"$\Theta(n^2)$: c_1={c1:.2f},\ c_2={c2:.2f},\ n_0={n0}:$"
-    r"$\forall n \geq n_0 \rightarrow c_1 n^2 \leq f(n) \leq c_2 n^2$",
+    (
+        rf"$\Theta(n^2):\ c_1={c1:.2f},\ c_2={c2:.2f},\ n_0={N0}:"
+        r"\ \forall n \geq n_0 \rightarrow c_1 n^2 \leq f(n) \leq c_2 n^2$"
+    ),
     fontsize=16,
     pad=20,
 )
 plt.xlabel("n", fontsize=14)
 plt.ylabel("Значение функции", fontsize=14)
 plt.legend(loc="upper left", fontsize=10)
-plt.xticks(np.arange(0, 21, 2))
-plt.ylim(0, 160)
+plt.xticks(np.arange(X_MIN, X_MAX + 1, 2))
+plt.ylim(Y_MIN, Y_MAX)
 plt.grid(visible=True, alpha=0.3)
 
 plt.tight_layout()
