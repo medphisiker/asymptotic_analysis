@@ -1,5 +1,7 @@
 # Asymptotic Analysis Visualizer
 
+[![Python](https://img.shields.io/badge/python-3.12-blue?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![uv](https://img.shields.io/badge/uv-0.7.18-orange?logo=python&logoColor=white)](https://github.com/astral-sh/uv)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python&logoColor=white)](https://docs.astral.sh/ruff/)
 
