@@ -49,7 +49,7 @@ plt.scatter(N0, f(N0), color="green", s=80, zorder=5, marker="o")
 plt.annotate(
     rf"$f({N0}) = {float(f(N0)):.1f} < c\cdot g({N0}) = {float(C * g(N0)):.1f}$",
     (N0, float(f(N0))),
-    xytext=(N0 - 4, float(f(N0)) + 10),
+    xytext=(N0 - 10, float(f(N0)) + 10),
     arrowprops={"arrowstyle": "->"},
 )
 
