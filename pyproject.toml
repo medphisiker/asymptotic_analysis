@@ -1,0 +1,19 @@
+[project]
+name = "asynptotic-analis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.3",
+]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+# Включить все основные и дополнительные проверки
+select = ["ALL"]
+
+[tool.ruff.format]
+# Можно добавить дополнительные параметры форматирования, если потребуется
